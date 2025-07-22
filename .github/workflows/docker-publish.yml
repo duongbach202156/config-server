@@ -42,4 +42,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:${{ github.event.release.tag_name }}
+        tags: bachdx202156/${{ github.repository }}:${{ github.event.release.tag_name }}
