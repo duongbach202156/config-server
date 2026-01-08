@@ -13,7 +13,7 @@ on:
     types: [ published ]
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: bachdx202156
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   build:
 
@@ -36,9 +36,13 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and tag Docker image
       run: |
-        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }} .
-        docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        docker build -t ${{ env.REGISTRY }}/bachdx202156:${{ github.ref_name }} .
+        docker tag ${{ env.REGISTRY }}/bachdx202156:${{ github.ref_name }} ${{ env.REGISTRY }}/bachdx202156:latest
+#        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }} .
+#        docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
     - name: Push Docker image (version)
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+#      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+      run: docker push ${{ env.REGISTRY }}/bachdx202156:${{ github.ref_name }}
     - name: Push Docker image (latest)
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+#      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      run: docker push ${{ env.REGISTRY }}/bachdx202156:latest
