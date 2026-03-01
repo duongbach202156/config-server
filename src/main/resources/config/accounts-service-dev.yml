@@ -11,12 +11,35 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  sql:
-    init:
-      mode: always
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: '*'
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    liveness-state:
+      enabled: true
+    readiness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    shutdown:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE:http://localhost:8070/eureka/}
+info:
+  app:
+    name: accounts-service
+    description: Service to manage accounts
+    version: 1.0.1

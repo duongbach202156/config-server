@@ -1,17 +1,16 @@
 server:
-  port: 8090
+  port: 8072
 spring:
   application:
-    name: loans-service
-  datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+              lower-case-service-id: true
 management:
   endpoints:
     web:
@@ -28,6 +27,8 @@ management:
         enabled: true
     shutdown:
       access: unrestricted
+    gateway:
+      access: unrestricted
   info:
     env:
       enabled: true
@@ -42,6 +43,6 @@ eureka:
       defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE:http://localhost:8070/eureka/}
 info:
   app:
-    name: loans-service
-    description: Service to manage loans
+    name: api-gateway
+    description: Api gateway for routing requests to microservices
     version: 1.0.1
